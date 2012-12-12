@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+#
+# HTML-Pypeline Bootstrap - Quickly get started developing HTML-pypeline
+# Run with `./script/bootstrap`
+#
 
 set -e
 
