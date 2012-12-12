@@ -1,4 +1,4 @@
-# HTML-Pypeline [![Build Status](https://travis-ci.org/rsenk330/html-pypeline.png)](https://travis-ci.org/rsenk330/html-pypeline)
+# HTML-Pypeline [![Build Status](https://travis-ci.org/rsenk330/html-pypeline.png?branch=master)](https://travis-ci.org/rsenk330/html-pypeline)
 
 HTML Pypeline is a python implementation of the [HTML::Pipeline](https://github.com/jch/html-pipeline) ruby library.
 
