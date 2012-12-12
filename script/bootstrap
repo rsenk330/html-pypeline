@@ -1,0 +1,149 @@
+#!/usr/bin/env bash
+
+set -e
+
+LOG=/tmp/pypeline-bootstrap
+PLATFORM=$(uname -s)
+
+echo -e ""
+echo "" > $LOG
+
+handle_error() {
+  fail "Unexpected error"
+}
+
+trap handle_error EXIT
+
+info() {
+  printf "  […] $1"
+}
+
+prompt() {
+  printf "      $1"
+}
+
+success() {
+  printf "\r  [✓] $1                       \n"
+}
+
+fail() {
+  trap - EXIT
+  printf "\r  [x] $1                       \n"
+  echo ""
+  echo "See $LOG for more information."
+  exit 1
+}
+
+init_python_environment() {
+  info "python environment"
+
+  if [ -n "$VIRTUAL_ENV" ] ; then
+    success "python environment"
+  else
+    echo "You need to activate a virtualenv before continuing." >> $LOG
+    echo "See http://www.doughellmann.com/projects/virtualenvwrapper/ for more information" >> $LOG
+
+    fail "python environment"
+  fi
+}
+
+osx_installed() {
+  brew list | grep -i $1 > /dev/null
+  [ $? -eq 0 ]
+}
+
+osx_install() {
+  info "installing $1"
+
+  brew install $1 >> $LOG
+
+  if [ $? -eq 0 ] ; then
+    success $1
+  else
+    fail $1
+  fi
+}
+
+deps_update_needed() {
+  if [ -e "script/.deps_checksum" ] ; then
+    last_checksum=$(cat script/.deps_checksum)
+    checksum=$(cksum setup.py)
+
+    if [ "$last_checksum" == "$checksum" ] ; then
+      echo "false"
+    else
+      echo "true"
+    fi
+  else
+    echo "true"
+  fi
+}
+
+pip_install() {
+  info $1
+
+  if $(pip search -q $1) ; then
+    pip install $1 >> $LOG
+  else
+    fail $1
+  fi
+
+  success $1
+}
+
+install() {
+  if [ $PLATFORM == "Darwin" ] ; then
+    if osx_installed $1
+    then
+      success $1
+      return
+    fi
+
+    osx_install $1
+  fi
+}
+
+# Check for homebrew on OS X
+if [ $PLATFORM == "Darwin" ] ; then
+  if test $(which brew) ; then
+    success 'homebrew'
+  else
+    info "installing homebrew..."
+    ruby -e "$(curl -fsSkL raw.github.com/mxcl/homebrew/go)" >> $LOG
+    success 'homebrew'
+  fi
+fi
+
+# Install system deps
+install "libyaml"
+
+# Initialize and install python deps
+init_python_environment
+pip_install "ipython"
+
+# Run setup.py
+info "packages"
+if [ $(deps_update_needed) == "true" ] ; then
+  echo $(cksum setup.py) > script/.deps_checksum
+
+  if python setup.py develop >> $LOG ; then
+    success "packages"
+  else
+    fail "gems"
+  fi
+else
+  success "packages (no changes)"
+fi
+
+# Install git submodules
+if test -f ".gitmodules" ; then
+  info "git submodules"
+  git submodule init >> $LOG
+  git submodule update >> $LOG
+  success "git submodules"
+fi
+
+echo ""
+echo "  You're ready to go!"
+
+trap - EXIT
