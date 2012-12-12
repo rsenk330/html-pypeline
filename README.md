@@ -1,8 +1,8 @@
-# HTML Pypeline
+# HTML-Pypeline
 
 HTML Pypeline is a python implementation of the [HTML::Pipeline](https://github.com/jch/html-pipeline) ruby library.
 
-It applies a number of different filters to the provided content, rendering, for example, Markdown to HTML with emojis.
+It applies a number of different filters (like a pipeline) to the provided content, rendering, for example, Markdown to HTML with emojis.
 
 ## Installation
 
