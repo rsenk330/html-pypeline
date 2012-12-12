@@ -1,12 +1,20 @@
-from setuptools import setup, find_packages
+import os
 
 import pypeline
 
-requires = []
-setup_requires = [
-    'nose>=1.0',
-    'coverage'
+from setuptools import setup, find_packages
+
+requires = [
+    'misaka',
 ]
+
+# Only include stuff for "development" by looking for a file
+# called ``./script/.devel``
+if os.path.exists("./script/.devel"):
+    requires.extend([
+        'nose>=1.0',
+        'coverage>=3.5.3',
+    ])
 
 setup(
     name='pypeline',
@@ -16,7 +24,6 @@ setup(
     packages=find_packages(),
     scripts=[],
     install_requires=requires,
-    setup_requires=setup_requires,
     include_package_data=True,
     zip_safe=True
 )

@@ -38,6 +38,7 @@ init_python_environment() {
   info "python environment"
 
   if [ -n "$VIRTUAL_ENV" ] ; then
+    echo "" > script/.devel
     success "python environment"
   else
     echo "You need to activate a virtualenv before continuing." >> $LOG
@@ -126,7 +127,7 @@ info "packages"
 if [ $(deps_update_needed) == "true" ] ; then
   echo $(cksum setup.py) > script/.deps_checksum
 
-  if python setup.py develop >> $LOG ; then
+  if python setup.py develop >> $LOG 2>&1 ; then
     success "packages"
   else
     fail "gems"
