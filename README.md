@@ -12,7 +12,33 @@ Until it is on pypi, you need to install it by hand:
 
 ## Usage
 
+    ```python
+    import pypeline
+
+    filters = [
+        pypeline.filters.markdown(),
+        ...
+    ]
+    markdown = "# Test\n*Testing this*"
+
+    pipeline = pypeline.Pipeline(filters)
+    html = pipeline.render(markdown)
+    ```
+
 ## Filters
+
+Most of the filters provided by [HTML::Pipeline](https://github.com/jch/html-pipeline) are also provided here.
+
+* **MentionFilter**: Replace `@mentions` with a URL
+* **AutolinkFilter**: Automatic linking of URLs
+* **EmojiFilter**: Replace [emoji](http://www.emoji-cheat-sheet.com/) tags with images
+* **HttpsFilter**: Replace HTTP URLs with HTTPS
+* **ImageMaxWidthFilter**: Link to the full size image when creating image previews
+* **MarkdownFilter**: Markdown -> HTML
+* **PlainTextInputFilter**: Escapes HTML tags and wraps in a div
+* **SyntaxHighlightFilter**: Syntax highlighting
+* **TextileFilter**: Textile -> HTML
+* **TableOfContentsFilter**: Adds the `name` attribute to headers
 
 ## Examples
 
@@ -21,7 +47,7 @@ Until it is on pypi, you need to install it by hand:
 1. Clone the repo
 1. Create a virtualenv
 1. Run `./script/bootstrap`
-1. Run unit tests with `python setup.py nosetests`
+1. Run unit tests with `nosetests`
 
 ## Contributing
 
