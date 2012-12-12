@@ -12,18 +12,18 @@ Until it is on pypi, you need to install it by hand:
 
 ## Usage
 
-    ```python
-    import pypeline
+```python
+import pypeline
 
-    filters = [
-        pypeline.filters.markdown(),
-        ...
-    ]
-    markdown = "# Test\n*Testing this*"
+filters = [
+    pypeline.filters.markdown(),
+    ...
+]
+markdown = "# Test\n*Testing this*"
 
-    pipeline = pypeline.Pipeline(filters)
-    html = pipeline.render(markdown)
-    ```
+pipeline = pypeline.Pipeline(filters)
+html = pipeline.render(markdown)
+```
 
 ## Filters
 
