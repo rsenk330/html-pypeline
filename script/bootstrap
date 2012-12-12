@@ -42,7 +42,6 @@ init_python_environment() {
   info "python environment"
 
   if [ -n "$VIRTUAL_ENV" ] ; then
-    echo "" > script/.devel
     success "python environment"
   else
     echo "You need to activate a virtualenv before continuing." >> $LOG
@@ -72,7 +71,7 @@ osx_install() {
 deps_update_needed() {
   if [ -e "script/.deps_checksum" ] ; then
     last_checksum=$(cat script/.deps_checksum)
-    checksum=$(cksum setup.py)
+    checksum=$(cksum requirements.txt)
 
     if [ "$last_checksum" == "$checksum" ] ; then
       echo "false"
@@ -129,12 +128,11 @@ pip_install "ipython"
 # Run setup.py
 info "packages"
 if [ $(deps_update_needed) == "true" ] ; then
-  echo $(cksum setup.py) > script/.deps_checksum
-
-  if python setup.py develop >> $LOG 2>&1 ; then
+  if pip install -r requirements.txt --use-mirrors  >> $LOG 2>&1 && python setup.py develop >> $LOG 2>&1 ; then
+    echo $(cksum requirements.txt) > script/.deps_checksum
     success "packages"
   else
-    fail "gems"
+    fail "packages"
   fi
 else
   success "packages (no changes)"

@@ -1,20 +1,8 @@
-import os
-
 import pypeline
 
 from setuptools import setup, find_packages
 
-requires = [
-    'misaka',
-]
-
-# Only include stuff for "development" by looking for a file
-# called ``./script/.devel``
-if os.path.exists("./script/.devel"):
-    requires.extend([
-        'nose>=1.0',
-        'coverage>=3.5.3',
-    ])
+requires = []
 
 setup(
     name='pypeline',

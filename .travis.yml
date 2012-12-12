@@ -3,5 +3,8 @@ python:
   - "2.6"
   - "2.7"
   - "3.2"
-install: python setup.py install
 script: python setup.py nosetests
+install:
+  - pip install nose
+  - pip install coverage
+  - pip install -r requirements.txt --use-mirrors

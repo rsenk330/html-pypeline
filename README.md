@@ -47,7 +47,7 @@ Most of the filters provided by [HTML::Pipeline](https://github.com/jch/html-pip
 1. Clone the repo
 1. Create a virtualenv
 1. Run `./script/bootstrap`
-1. Run unit tests with `nosetests`
+1. Run unit tests with `nosetests` (`pip install nose coverage` if you don't have nose installed)
 
 ## Contributing
 
