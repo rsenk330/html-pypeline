@@ -1,6 +1,6 @@
-import unittest
-
 import pypeline
+
+from pypeline.utils import unittest
 
 class MarkdownTests(unittest.TestCase):
     def test_markdown_render(self):

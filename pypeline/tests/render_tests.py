@@ -1,6 +1,6 @@
-import unittest
-
 import pypeline
+
+from pypeline.utils import unittest
 
 class TestPipeline(unittest.TestCase):
     def setUp(self):
