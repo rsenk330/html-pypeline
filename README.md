@@ -17,9 +17,10 @@ import pypeline
 
 filters = [
     pypeline.filters.markdown(),
+    pypeline.filters.mention(),
     ...
 ]
-markdown = "# Test\n*Testing this*"
+markdown = "# Test\n*Testing this\n@user testing*"
 
 pipeline = pypeline.Pipeline(filters)
 html = pipeline.render(markdown)
@@ -29,12 +30,17 @@ html = pipeline.render(markdown)
 
 Most of the filters provided by [HTML::Pipeline](https://github.com/jch/html-pipeline) are also provided here.
 
+Filters that are currently completed:
+
+* **MarkdownFilter**: Markdown -> HTML
 * **MentionFilter**: Replace `@mentions` with a URL
+
+Filters that are being worked on:
+
 * **AutolinkFilter**: Automatic linking of URLs
 * **EmojiFilter**: Replace [emoji](http://www.emoji-cheat-sheet.com/) tags with images
 * **HttpsFilter**: Replace HTTP URLs with HTTPS
 * **ImageMaxWidthFilter**: Link to the full size image when creating image previews
-* **MarkdownFilter**: Markdown -> HTML
 * **PlainTextInputFilter**: Escapes HTML tags and wraps in a div
 * **SyntaxHighlightFilter**: Syntax highlighting
 * **TextileFilter**: Textile -> HTML
