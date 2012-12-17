@@ -1,3 +1,2 @@
-beautifulsoup4
 lxml
 misaka==1.0.2
