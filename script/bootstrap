@@ -71,7 +71,7 @@ osx_install() {
 deps_update_needed() {
   if [ -e "script/.deps_checksum" ] ; then
     last_checksum=$(cat script/.deps_checksum)
-    checksum=$(cksum requirements.txt)
+    checksum=$(cksum requirements.txt requirements-devel.txt)
 
     if [ "$last_checksum" == "$checksum" ] ; then
       echo "false"
@@ -123,13 +123,13 @@ install "libyaml"
 
 # Initialize and install python deps
 init_python_environment
-pip_install "ipython"
 
 # Run setup.py
 info "packages"
 if [ $(deps_update_needed) == "true" ] ; then
-  if pip install -r requirements.txt --use-mirrors  >> $LOG 2>&1 && python setup.py develop >> $LOG 2>&1 ; then
+  if pip install -r requirements-devel.txt --use-mirrors  >> $LOG 2>&1 && python setup.py develop >> $LOG 2>&1 ; then
     echo $(cksum requirements.txt) > script/.deps_checksum
+    echo $(cksum requirements-devel.txt) >> script/.deps_checksum
     success "packages"
   else
     fail "packages"
