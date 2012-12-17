@@ -22,6 +22,11 @@ class Mention(object):
     MENTION_RE = r'\B@(?P<username>\w+)'
 
     def __init__(self, context={}):
+        """Creates a new `@mention` filter.
+
+        :param dict context: The filters context
+
+        """
         self.context = {
             'user_url': '/users/{username}',
             'ignore_username': ['mention', 'mentioning'],
@@ -31,6 +36,7 @@ class Mention(object):
         self.context.update(context)
 
     def __call__(self, content):
+        """Runs the filter and replaces all `@mention`'s with links"""
         fragment = fromstring(content)
 
         for index, el in enumerate(fragment):
