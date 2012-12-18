@@ -1,4 +1,13 @@
+from xml.sax import saxutils
+
 import misaka as m
+
+class SyntaxRenderer(m.HtmlRenderer):
+    def block_code(self, text, lang):
+        if lang:
+            return '\n<pre><code lang="{0}">{1}</code></pre>\n'.format(lang, saxutils.escape(text.strip()))
+        else:
+            return '\n<pre><code>{0}</code></pre>\n'.format(saxutils.escape(text.strip()))
 
 def markdown(context={}):
     """Renders HTML from Makrdown text.
@@ -10,7 +19,9 @@ def markdown(context={}):
     :returns: The filter function pointer to render the HTML
 
     """
+    md = m.Markdown(SyntaxRenderer(), extensions=m.EXT_FENCED_CODE | m.EXT_STRIKETHROUGH | m.EXT_NO_INTRA_EMPHASIS)
+
     def render(content):
-        return m.html(content)
+        return md.render(content)
 
     return render
