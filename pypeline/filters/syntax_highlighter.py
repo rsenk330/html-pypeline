@@ -5,6 +5,22 @@ from pygments.lexers import get_lexer_by_name
 from pygments.util import ClassNotFound
 
 class SyntaxHighlighter(object):
+    """Highlights syntax with pygments.
+
+    To highlight HTML, wrap the code in a ``<code lang="..."></code>`` tag.
+    The `lang` attribute specifies the language the code block is written in.
+
+    In Markdown, you can using fenced code blocks. The markdown filter will
+    automatically replace that with the correct HTML code.
+
+    Example markdown:
+
+        ```python
+        print("Here is sample python code")
+        ```
+
+    """
+
     def __init__(self, context={}):
         self.context = context
         self.formatter = HtmlFormatter(linenos=False, cssclass="source")
