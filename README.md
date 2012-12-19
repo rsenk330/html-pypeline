@@ -35,6 +35,7 @@ Filters that are currently completed:
 * **MarkdownFilter**: Markdown -> HTML
 * **PlainTextInputFilter**: Escapes HTML tags and wraps in a div
 * **MentionFilter**: Replace `@mentions` with a URL
+* **SyntaxHighlightFilter**: Syntax highlighting
 
 Filters that are being worked on:
 
@@ -42,7 +43,6 @@ Filters that are being worked on:
 * **EmojiFilter**: Replace [emoji](http://www.emoji-cheat-sheet.com/) tags with images
 * **HttpsFilter**: Replace HTTP URLs with HTTPS
 * **ImageMaxWidthFilter**: Link to the full size image when creating image previews
-* **SyntaxHighlightFilter**: Syntax highlighting
 * **TextileFilter**: Textile -> HTML
 * **TableOfContentsFilter**: Adds the `name` attribute to headers
 

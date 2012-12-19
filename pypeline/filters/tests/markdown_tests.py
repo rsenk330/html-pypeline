@@ -20,3 +20,17 @@ This is test markdown. It **should** render in *HTML*.
         html = self.renderer.render(markdown)
 
         self.assertEqual(html, "<h1>Test Header</h1>\n\n<p>This is test markdown. It <strong>should</strong> render in <em>HTML</em>.</p>\n")
+
+class SyntaxRendererTests(unittest.TestCase):
+    def setUp(self):
+        self.renderer = pypeline.filters.SyntaxRenderer()
+
+    def test_block_code_lang_set(self):
+        """Test to make sure that the proper code block is rendered (with lang)"""
+        expected = '\n<pre><code lang="python">code sample</code></pre>\n'
+        self.assertEqual(self.renderer.block_code("code sample", "python"), expected)
+
+    def test_block_code_lang_not_set(self):
+        """Test to make sure that the proper code block is rendered (without lang)"""
+        expected = '\n<pre><code>code sample</code></pre>\n'
+        self.assertEqual(self.renderer.block_code("code sample", None), expected)
