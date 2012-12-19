@@ -32,7 +32,7 @@ class SyntaxHighlighter(object):
             lang = el.attrib.get('lang', None)
             if lang is None: continue
 
-            highlighted = self._highlight(lang, el.text)
+            highlighted = self._highlight(lang, tostring(el))
 
             el.clear()
             el.append(fromstring(highlighted))

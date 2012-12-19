@@ -70,3 +70,17 @@ def test():
         self.assertTrue(highlighted.findall("..//pre"))
         self.assertTrue(highlighted.findall("..//code"))
         self.assertFalse(highlighted.findall("..//span"))
+
+    def test_render_html_escape(self):
+        """Make sure tags are escaped"""
+        html = """\
+<code lang="html">
+    <script type="text/html">
+        alert("Hello world!");
+    </script>
+</code>
+"""
+
+        highlighted = fromstring(self.filter(html))
+
+        self.assertFalse(highlighted.findall("..//script"))
