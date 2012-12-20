@@ -32,14 +32,16 @@ Most of the filters provided by [HTML::Pipeline](https://github.com/jch/html-pip
 
 Filters that are currently completed:
 
-* **MarkdownFilter**: Markdown -> HTML
-* **PlainTextInputFilter**: Escapes HTML tags and wraps in a div
+* **MarkdownFilter***: Markdown -> HTML
+* **PlainTextInputFilter***: Escapes HTML tags and wraps in a div
+* **AutolinkFilter**: Automatic linking of URLs
 * **MentionFilter**: Replace `@mentions` with a URL
 * **SyntaxHighlightFilter**: Syntax highlighting
 
+*Only one of these can be used at a time, and they must be the _first_ filter in the pipeline.
+
 Filters that are being worked on:
 
-* **AutolinkFilter**: Automatic linking of URLs
 * **EmojiFilter**: Replace [emoji](http://www.emoji-cheat-sheet.com/) tags with images
 * **HttpsFilter**: Replace HTTP URLs with HTTPS
 * **ImageMaxWidthFilter**: Link to the full size image when creating image previews
