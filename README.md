@@ -20,7 +20,15 @@ filters = [
     pypeline.filters.mention(),
     ...
 ]
-markdown = "# Test\n*Testing this\n@user testing*"
+markdown = """\
+# Test
+
+**Testing this**
+
+## @mention
+
+@user testing
+"""
 
 pipeline = pypeline.Pipeline(filters)
 html = pipeline.render(markdown)
