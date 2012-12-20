@@ -1,3 +1,4 @@
+from .autolink import autolink
 from .markdown import markdown, SyntaxRenderer
 from .mention import Mention as mention
 from .plaintext import plaintext
