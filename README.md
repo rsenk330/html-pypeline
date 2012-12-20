@@ -56,6 +56,35 @@ Filters that are being worked on:
 * **TextileFilter**: Textile -> HTML
 * **TableOfContentsFilter**: Adds the `name` attribute to headers
 
+### Creating your own filter
+
+Creating your own filter is simple, and you have two different implementation options.
+
+For simple filters, just create a closure:
+
+```python
+def my_filter(context={}):
+    def render(content):
+        # do filtering
+        # ...
+        return filtered
+
+    return render
+```
+
+For more complex filters, it might be easier to create a class. This class must respond to the ``__call__()`` method. The above example can also be written like:
+
+```python
+class MyFilter(object):
+    def __init__(self, context={}):
+        self.context = context
+
+    def __call__(self, content):
+        # do filtering
+        # ...
+        return filtered
+```
+
 ## Examples
 
 ## Developing
