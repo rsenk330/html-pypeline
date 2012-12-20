@@ -5,9 +5,9 @@ import misaka as m
 class SyntaxRenderer(m.HtmlRenderer):
     def block_code(self, text, lang):
         if lang:
-            return '\n<pre><code lang="{0}">{1}</code></pre>\n'.format(lang, saxutils.escape(text.strip()))
+            return '\n<pre lang="{0}">{1}</pre>\n'.format(lang, saxutils.escape(text.strip()))
         else:
-            return '\n<pre><code>{0}</code></pre>\n'.format(saxutils.escape(text.strip()))
+            return '\n<pre>{0}</pre>\n'.format(saxutils.escape(text.strip()))
 
 def markdown(context={}):
     """Renders HTML from Makrdown text.

@@ -28,11 +28,11 @@ class SyntaxHighlighter(object):
     def __call__(self, content):
         fragment = fromstring(content)
 
-        for el in fragment.findall("..//code"):
+        for el in fragment.findall("..//pre"):
             lang = el.attrib.get('lang', None)
             if lang is None: continue
 
-            highlighted = self._highlight(lang, tostring(el))
+            highlighted = self._highlight(lang, el.text)
 
             el.clear()
             el.append(fromstring(highlighted))

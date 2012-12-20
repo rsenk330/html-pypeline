@@ -27,10 +27,10 @@ class SyntaxRendererTests(unittest.TestCase):
 
     def test_block_code_lang_set(self):
         """Test to make sure that the proper code block is rendered (with lang)"""
-        expected = '\n<pre><code lang="python">code sample</code></pre>\n'
+        expected = '\n<pre lang="python">code sample</pre>\n'
         self.assertEqual(self.renderer.block_code("code sample", "python"), expected)
 
     def test_block_code_lang_not_set(self):
         """Test to make sure that the proper code block is rendered (without lang)"""
-        expected = '\n<pre><code>code sample</code></pre>\n'
+        expected = '\n<pre>code sample</pre>\n'
         self.assertEqual(self.renderer.block_code("code sample", None), expected)

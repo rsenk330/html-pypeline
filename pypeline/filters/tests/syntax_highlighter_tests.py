@@ -35,16 +35,15 @@ def test():
         highlighted = fromstring(self.filter._highlight('invalid', html))
 
         self.assertTrue(highlighted.findall(".//pre"))
-        self.assertFalse(highlighted.findall(".//code"))
 
     def test_render_valid_lang(self):
         """Tests to make sure syntax is rendered with a valid lang"""
         html = """\
-<code lang="python">
+<pre lang="python">
     def test():
         for i in range(10):
             print(i)
-</code>
+</pre>
 """
         highlighted = fromstring(self.filter(html))
 
@@ -52,33 +51,31 @@ def test():
         self.assertTrue(highlighted.findall("..//div"))
         self.assertTrue(highlighted.findall("..//pre"))
         self.assertTrue(highlighted.findall("..//span"))
-        self.assertTrue(highlighted.findall("..//code"))
 
     def test_render_invalid_lang(self):
         """Tests to make sure syntax is rendered with an invalid lang"""
         html = """\
-<code lang="invalid">
+<pre lang="invalid">
     def test():
         for i in range(10):
             print(i)
-</code>
+</pre>
 """
         highlighted = fromstring(self.filter(html))
 
         self.assertEqual(len(highlighted.findall("..//div[@class='source']")), 1)
         self.assertTrue(highlighted.findall("..//div"))
         self.assertTrue(highlighted.findall("..//pre"))
-        self.assertTrue(highlighted.findall("..//code"))
         self.assertFalse(highlighted.findall("..//span"))
 
     def test_render_html_escape(self):
         """Make sure tags are escaped"""
         html = """\
-<code lang="html">
+<pre lang="html">
     <script type="text/html">
         alert("Hello world!");
     </script>
-</code>
+</pre>
 """
 
         highlighted = fromstring(self.filter(html))

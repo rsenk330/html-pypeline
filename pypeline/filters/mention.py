@@ -39,13 +39,13 @@ class Mention(object):
         """Runs the filter and replaces all `@mention`'s with links"""
         fragment = fromstring(content)
 
-        for index, el in enumerate(fragment):
+        for index, el in enumerate(fragment.findall(".//*")):
             text = el.text
 
-            if '@' not in text: continue
+            if text and '@' not in text: continue
             if self._should_ignore(el): continue
 
-            fragment[index] = self._add_mention_links(el)
+            el.getparent().replace(el, self._add_mention_links(el))
 
         return tostring(fragment)
 
