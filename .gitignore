@@ -1,3 +1,4 @@
 /*.egg*/
 script/.*
 .coverage
+/script/.deps-checksum
